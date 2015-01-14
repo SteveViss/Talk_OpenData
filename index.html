@@ -1,100 +1,373 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title></title>
   <meta charset="utf-8">
+  <title>Les base de données ouvertes</title>
   <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="generator" content="slidify" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
-    media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
-
-  
-  <!-- Grab CDN jQuery, fall back to local if offline -->
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
-  <script data-main="libraries/frameworks/io2012/js/slides" 
-    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
-  </script>
-  
-  
+  <meta name="author" content="Steve Vissault et Isabelle Boulangeat">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/default.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/default.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
 
 </head>
-<body style="opacity: 0">
-  <slides class="layout-widescreen">
-    
-    <!-- LOGO SLIDE -->
-        <slide class="title-slide segue nobackground">
-  <hgroup class="auto-fadein">
-    <h1></h1>
-    <h2></h2>
-    <p><br/></p>
-  </hgroup>
-  <article></article>  
-</slide>
-    
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>Les données ouvertes et l&#39;univers des APIs</h2>
+  <p><strong>Ca peut vous simplifier la vie!</strong></p>
 
-    <!-- SLIDES -->
-    <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Read-And-Delete</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
-<li>Edit YAML front matter</li>
-<li>Write using R Markdown</li>
-<li>Use an empty line followed by three dashes to separate slides!</li>
+<p></br>
+Rencontre interlabs</br>
+</br></p>
+
+<p><span style="font-size:x-large">Par Steve Vissault et Isabelle Boulangeat </span></p>
+
+</section>
+<section class='' data-state='' id='slide-2'>
+  <h3>Les données ouvertes et les APIs, c&#39;est quoi ?</h3>
+  <blockquote>
+<p><strong>Une donnée ouverte</strong> est une donnée numérique d&#39;origine publique ou privée.
+Elle est diffusée de manière structurée avec une <strong><a href="http://choosealicense.com/">licence ouverte</a></strong> garantissant son libre accès.</p>
+
+<p>Une API web est une interface/programme permettant de retirer de l&#39;information sur un serveur de données
+Ce type d&#39;interface utilise les protocoles standard d&#39;internet (HTTP).</p>
+</blockquote>
+
+</section>
+<section class='' data-state='' id='slide-3'>
+  <h3>Objectif de la rencontre</h3>
+  <p><strong>Partager et présenter des ressources disponibles via Internet, ou des programmes (R/Python)</strong></p>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h3>Les base de données spatiales et climatiques</h3>
+  
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h3>Quelques base de données spatiales/climatiques</h3>
+  <ol>
+<li><a href="http://www.mern.gouv.qc.ca/territoire/portrait/portrait-donnees.jsp" target="_blank">La base de données cartographiques du Québec</a></li>
+<li><a href="http://www.worldclim.org/" target="_blank">Worldclim</a>:Climat mondial à une résolution de 1 km<sup>2</sup></li>
+<li><a href="http://www.diva-gis.org/gdata" target="_blank">DivaGIS</a>: Shapefiles pour toutes les pays du monde</li>
+<li><a href="http://cfs.nrcan.gc.ca/projects/3/8" target="_blank">GCM/RCM Canada</a>: Les scénarios des CCs</li>
+<li><a href="http://freegisdata.rtwilson.com/#home" target="_blank">FreeGIS</a>: Regroupe un grand nombre de données spatiales</li>
 </ol>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</section>
+<section class='' data-state='' id='slide-6'>
+  <h3>Comment obtenir un fond de carte rapide?</h3>
+  <p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
-<slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Slide 2</h2>
-  </hgroup>
-  <article data-timings="">
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</section>
+<section class='' data-state='' id='slide-7'>
+  <h3>Obtenir un fond de carte rapide (API Google)</h3>
+  <pre><code class="r">library(&#39;ggmap&#39;)
+theme_set(theme_grey(base_size = 18))
+qmap(&quot;Quebec&quot;,zoom = 4, maptype = &#39;terrain&#39;,extent =&quot;normal&quot;) +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab(&quot;Longitude&quot;) + ylab(&quot;Latitude&quot;)
+</code></pre>
 
-    <slide class="backdrop"></slide>
-  </slides>
-  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
-    <ul>
-      <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Read-And-Delete'>
-         1
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Slide 2'>
-         2
-      </a>
-    </li>
-  </ul>
-  </div>  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
-    </script>
-    <script>CFInstall.check({mode: 'overlay'});</script>
-  <![endif]-->
-</body>
-  <!-- Load Javascripts for Widgets -->
+<p><img src="assets/fig/unnamed-chunk-2-1.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+</section>
+<section class='' data-state='' id='slide-8'>
+  <h3>Obtenir un fond de carte rapide (API Google)</h3>
+  <pre><code class="r">library(&#39;ggmap&#39;)
+theme_set(theme_grey(base_size = 18))
+qmap(&quot;Quebec&quot;,zoom = 4, maptype = &#39;satellite&#39;,extent =&quot;normal&quot;) +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab(&quot;Longitude&quot;) + ylab(&quot;Latitude&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+</section>
+<section class='' data-state='' id='slide-9'>
+  <h3>Obtenir un fond de carte rapide (API Google)</h3>
+  <pre><code class="r">library(&#39;ggmap&#39;)
+theme_set(theme_grey(base_size = 18))
+qmap(&quot;Quebec&quot;,zoom = 4, maptype = &#39;hybrid&#39;,extent =&quot;normal&quot;) +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab(&quot;Longitude&quot;) + ylab(&quot;Latitude&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+</section>
+<section class='' data-state='' id='slide-10'>
+  <h3>Les bases de données biologiques</h3>
   
-  <!-- LOAD HIGHLIGHTER JS FILES -->
-  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
-   
-  </html>
+</section>
+<section class='' data-state='' id='slide-11'>
+  <h3>Quelques exemples</h3>
+  <ol>
+<li>GBIF</li>
+<li>BISON</li>
+<li>INAT</li>
+<li>EBIRD</li>
+<li>ECOENGINE</li>
+</ol>
+
+</section>
+<section class='' data-state='' id='slide-12'>
+  <h3>Comment interroger ces bases de données rapidement ?</h3>
+  
+</section>
+<section class='' data-state='' id='slide-13'>
+  <h3>ROpenSci, une solution</h3>
+  <blockquote>
+<p>They are creating R packages that allow access to data repositories that is already a familiar part of the workflow of many scientists</p>
+</blockquote>
+
+<p><a href="http://ropensci.org/packages/" target="_blank">Liste des librairies disponibles</a></p>
+
+<p>Site internet: <a href="http://ropensci.org/">http://ropensci.org/</a></p>
+
+</section>
+<section class='' data-state='' id='slide-14'>
+  <h3>Un exemple</h3>
+  <pre><code class="r">require(&#39;spocc&#39;)
+ecoengine_data &lt;- occ(query = &#39;Anas platyrhynchos&#39;, from = &#39;ebird&#39;)
+mapggplot(ecoengine_data)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+</section>
+<section class='' data-state='' id='slide-15'>
+  <h3>Un exemple</h3>
+  <pre><code class="r">require(&#39;spocc&#39;)
+spnames &lt;- c(&#39;Ursus americanus&#39;)
+out &lt;- occ(query = spnames, from = &#39;gbif&#39;, gbifopts = list(hasCoordinate = TRUE))
+head(out)
+</code></pre>
+
+<pre><code>## $gbif
+## Species [Ursus americanus (500)] 
+## First 10 rows of [Ursus_americanus]
+## 
+##                name  longitude latitude prov              issues
+## 1  Ursus americanus -103.29468 29.23322 gbif cdround,cudc,gass84
+## 2  Ursus americanus -118.14681 34.20990 gbif cdround,cudc,gass84
+## 3  Ursus americanus  -72.52534 43.73511 gbif cdround,cudc,gass84
+## 4  Ursus americanus -103.28908 29.28284 gbif cdround,cudc,gass84
+## 5  Ursus americanus -107.70675 33.11070 gbif             cdround
+## 6  Ursus americanus -103.31536 29.27444 gbif cdround,cudc,gass84
+## 7  Ursus americanus  -72.46131 44.34088 gbif cdround,cudc,gass84
+## 8  Ursus americanus -119.16081 34.56844 gbif cdround,cudc,gass84
+## 9  Ursus americanus -117.46038 50.09019 gbif cdround,cudc,gass84
+## 10 Ursus americanus -120.16434 39.51185 gbif cdround,cudc,gass84
+## ..              ...        ...      ...  ...                 ...
+## Variables not shown: key (int), datasetKey (chr), publishingOrgKey (chr),
+##      publishingCountry (chr), protocol (chr), lastCrawled (chr),
+##      lastParsed (chr), extensions (chr), basisOfRecord (chr), taxonKey
+##      (int), kingdomKey (int), phylumKey (int), classKey (int), orderKey
+##      (int), familyKey (int), genusKey (int), speciesKey (int),
+##      scientificName (chr), kingdom (chr), phylum (chr), order (chr),
+##      family (chr), genus (chr), species (chr), genericName (chr),
+##      specificEpithet (chr), taxonRank (chr), dateIdentified (chr), year
+##      (int), month (int), day (int), eventDate (chr), modified (chr),
+##      lastInterpreted (chr), references (chr), identifiers (chr), facts
+##      (chr), relations (chr), geodeticDatum (chr), class (chr), countryCode
+##      (chr), country (chr), gbifID (chr), verbatimEventDate (chr),
+##      institutionCode (chr), datasetName (chr), catalogNumber (chr),
+##      recordedBy (chr), rights (chr), occurrenceDetails (chr), rightsHolder
+##      (chr), eventTime (chr), occurrenceID (chr), identifier (chr), taxonID
+##      (chr), collectionCode (chr), identificationID (chr),
+##      infraspecificEpithet (chr), verbatimLocality (chr), occurrenceRemarks
+##      (chr), lifeStage (chr), elevation (dbl), elevationAccuracy (dbl),
+##      continent (chr), stateProvince (chr), georeferencedDate (chr),
+##      institutionID (chr), higherGeography (chr), type (chr), identifiedBy
+##      (chr), georeferenceSources (chr), identificationVerificationStatus
+##      (chr), samplingProtocol (chr), endDayOfYear (chr),
+##      otherCatalogNumbers (chr), preparations (chr),
+##      georeferenceVerificationStatus (chr), nomenclaturalCode (chr),
+##      individualID (chr), higherClassification (chr), locationAccordingTo
+##      (chr), previousIdentifications (chr), verbatimCoordinateSystem (chr),
+##      georeferenceProtocol (chr), identificationQualifier (chr),
+##      accessRights (chr), dynamicProperties (chr), county (chr), locality
+##      (chr), language (chr), georeferencedBy (chr), informationWithheld
+##      (chr), sex (chr), locationRemarks (chr), waterBody (chr), island
+##      (chr), collectionID (chr), depth (dbl), depthAccuracy (dbl)
+## 
+## $bison
+## Species [Ursus americanus (0)] 
+## First 10 rows of [Ursus_americanus]
+## 
+## 
+## $inat
+## Species [Ursus americanus (0)] 
+## First 10 rows of [Ursus_americanus]
+## 
+## 
+## $ebird
+## Species [Ursus americanus (0)] 
+## First 10 rows of [Ursus_americanus]
+## 
+## 
+## $ecoengine
+## Species [Ursus americanus (0)] 
+## First 10 rows of [Ursus_americanus]
+## 
+## 
+## $antweb
+## Species [Ursus americanus (0)] 
+## First 10 rows of [Ursus_americanus]
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-16'>
+  <h3>Si on veut pas utiliser R ?</h3>
+  <p>On peut retirer les données directement des sites en lignes</p>
+
+<p><strong>ou</strong></p>
+
+<p>Utiliser des logiciels comme EcoData Retriever</p>
+
+</section>
+<section class='' data-state='' id='slide-17'>
+  <h3>Les base de données taxonomiques</h3>
+  
+</section>
+<section class='' data-state='' id='slide-18'>
+  <h3>Les base de données taxonomiques</h3>
+  <p><strong>Quelques exemples</strong></p>
+
+<ol>
+<li>ITIS: International</li>
+<li>VASCAN: Canada</li>
+</ol>
+
+</section>
+<section class='' data-state='' id='slide-19'>
+  <h3>Comment résoudre des problèmes de nomenclature ?</h3>
+  
+</section>
+<section class='' data-state='' id='slide-20'>
+  <h3>Le package Taxize</h3>
+  <p>Chercher des correspondances dans les bases de données taxonomiques:</p>
+
+<pre><code class="r">require(&#39;taxize&#39;)
+temp &lt;- gnr_resolve(names = c(&quot;Helianthos annus&quot;, &quot;Homo saapiens&quot;))
+head( temp$results )
+</code></pre>
+
+<pre><code>##     submitted_name         matched_name data_source_title score
+## 1 Helianthos annus     Helianthus annus               EOL  0.75
+## 2 Helianthos annus  Helianthus annus L.               EOL  0.75
+## 3 Helianthos annus     Helianthus annus     uBio NameBank  0.75
+## 4 Helianthos annus Helianthus annuus L. Catalogue of Life  0.75
+## 5 Helianthos annus Helianthus annuus L.              ITIS  0.75
+## 6 Helianthos annus    Helianthus annuus              NCBI  0.75
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-21'>
+  <h3>Le package Taxize</h3>
+  <p>Corriger le nom latin:</p>
+
+<pre><code class="r">require(&#39;taxize&#39;)
+mynames &lt;- c(&quot;Helianthus annuus&quot;, &quot;Pinus contort&quot;, &quot;Poa anua&quot;, &quot;Abis magnifica&quot;,
+    &quot;Rosa california&quot;, &quot;Festuca arundinace&quot;, &quot;Sorbus occidentalos&quot;,&quot;Madia sateva&quot;)
+tnrs(query = mynames, source = &quot;iPlant_TNRS&quot;)[ , -c(5:7)]
+</code></pre>
+
+<pre><code>##         submittedname        acceptedname    sourceid score
+## 1 Sorbus occidentalos Sorbus occidentalis iPlant_TNRS  0.99
+## 2  Festuca arundinace Festuca arundinacea iPlant_TNRS  0.99
+## 3      Abis magnifica     Abies magnifica iPlant_TNRS  0.96
+## 4       Pinus contort      Pinus contorta iPlant_TNRS  0.98
+## 5            Poa anua           Poa annua iPlant_TNRS  0.96
+## 6        Madia sateva        Madia sativa iPlant_TNRS  0.97
+## 7   Helianthus annuus   Helianthus annuus iPlant_TNRS     1
+## 8     Rosa california    Rosa californica iPlant_TNRS  0.99
+</code></pre>
+
+</section>
+<section class='' data-state='' id='slide-22'>
+  <h3>Le package Taxize</h3>
+  <p>Obtenir la classification complète:</p>
+
+<pre><code class="r">require(&#39;taxize&#39;)
+specieslist &lt;- c(&quot;Abies procera&quot;,&quot;Pinus contorta&quot;)
+classification(specieslist, db = &#39;itis&#39;)
+</code></pre>
+
+<pre><code>## $`Abies procera`
+##               name          rank     id
+## 1          Plantae       Kingdom 202422
+## 2    Viridiplantae    Subkingdom 954898
+## 3     Streptophyta  Infrakingdom 846494
+## 4      Embryophyta Superdivision 954900
+## 5     Tracheophyta      Division 846496
+## 6  Spermatophytina   Subdivision 846504
+## 7        Pinopsida         Class 500009
+## 8          Pinidae      Subclass 954916
+## 9          Pinales         Order 500028
+## 10        Pinaceae        Family  18030
+## 11           Abies         Genus  18031
+## 12   Abies procera       Species 181835
+## 
+## $`Pinus contorta`
+##               name          rank     id
+## 1          Plantae       Kingdom 202422
+## 2    Viridiplantae    Subkingdom 954898
+## 3     Streptophyta  Infrakingdom 846494
+## 4      Embryophyta Superdivision 954900
+## 5     Tracheophyta      Division 846496
+## 6  Spermatophytina   Subdivision 846504
+## 7        Pinopsida         Class 500009
+## 8          Pinidae      Subclass 954916
+## 9          Pinales         Order 500028
+## 10        Pinaceae        Family  18030
+## 11           Pinus         Genus  18035
+## 12  Pinus contorta       Species 183327
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;classification&quot;
+## attr(,&quot;db&quot;)
+## [1] &quot;itis&quot;
+</code></pre>
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'default', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>

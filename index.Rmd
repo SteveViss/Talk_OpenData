@@ -1,26 +1,215 @@
 ---
-title       : 
-subtitle    : 
-author      : 
-job         : 
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
+title       : Les base de données ouvertes
+subtitle    : Des outils qui peuvent vous simplifier la vie !
+author      : Steve Vissault et Isabelle Boulangeat
+job         : Les rencontres interlabs
+framework   : revealjs
+highlighter : highlight.js
+hitheme     : default
+widgets     : []
+mode        : selfcontained
 knit        : slidify::knit2slides
 ---
 
-## Read-And-Delete
+## Les données ouvertes et l'univers des APIs
+**Ca peut vous simplifier la vie!**
 
-1. Edit YAML front matter
-2. Write using R Markdown
-3. Use an empty line followed by three dashes to separate slides!
+</br>
+Rencontre interlabs</br>
+</br>
 
---- .class #id 
-
-## Slide 2
-
+<span style="font-size:x-large">Par Steve Vissault et Isabelle Boulangeat </span>
 
 
+---
 
+### Les données ouvertes et les APIs, c'est quoi ?
+
+> **Une donnée ouverte** est une donnée numérique d'origine publique ou privée.
+> Elle est diffusée de manière structurée avec une **[licence ouverte](http://choosealicense.com/)** garantissant son libre accès.
+
+> Une API web est une interface/programme permettant de retirer de l'information sur un serveur de données
+> Ce type d'interface utilise les protocoles standard d'internet (HTTP).
+
+---
+
+### Objectif de la rencontre
+
+
+**Partager et présenter des ressources disponibles via Internet, ou des programmes (R/Python)**
+
+---
+
+### Les base de données spatiales et climatiques
+
+---
+
+### Quelques base de données spatiales/climatiques
+
+1. <a href="http://www.mern.gouv.qc.ca/territoire/portrait/portrait-donnees.jsp" target="_blank">La base de données cartographiques du Québec</a>
+2. <a href="http://www.worldclim.org/" target="_blank">Worldclim</a>:Climat mondial à une résolution de 1 km^2
+3. <a href="http://www.diva-gis.org/gdata" target="_blank">DivaGIS</a>: Shapefiles pour toutes les pays du monde
+4. <a href="http://cfs.nrcan.gc.ca/projects/3/8" target="_blank">GCM/RCM Canada</a>: Les scénarios des CCs
+5. <a href="http://freegisdata.rtwilson.com/#home" target="_blank">FreeGIS</a>: Regroupe un grand nombre de données spatiales
+
+---
+
+### Comment obtenir un fond de carte rapide?
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, result='asis'}
+library('ggmap')
+theme_set(theme_grey(base_size = 18))
+qmap("Quebec",zoom = 4, maptype = 'terrain',extent ="normal") +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab("Longitude") + ylab("Latitude")
+```
+
+---
+
+### Obtenir un fond de carte rapide (API Google)
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library('ggmap')
+theme_set(theme_grey(base_size = 18))
+qmap("Quebec",zoom = 4, maptype = 'terrain',extent ="normal") +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab("Longitude") + ylab("Latitude")
+```
+
+---
+### Obtenir un fond de carte rapide (API Google)
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library('ggmap')
+theme_set(theme_grey(base_size = 18))
+qmap("Quebec",zoom = 4, maptype = 'satellite',extent ="normal") +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab("Longitude") + ylab("Latitude")
+```
+
+---
+
+### Obtenir un fond de carte rapide (API Google)
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+library('ggmap')
+theme_set(theme_grey(base_size = 18))
+qmap("Quebec",zoom = 4, maptype = 'hybrid',extent ="normal") +
+  scale_x_continuous(expand=c(0,0)) + scale_y_continuous(expand=c(0,0))+
+  xlab("Longitude") + ylab("Latitude")
+```
+
+---
+
+### Les bases de données biologiques
+
+---
+
+### Quelques exemples
+
+1. GBIF
+2. BISON
+3. INAT
+4. EBIRD
+5. ECOENGINE
+
+---
+
+### Comment interroger ces bases de données rapidement ?
+
+---
+
+### ROpenSci, une solution
+
+> They are creating R packages that allow access to data repositories that is already a familiar part of the workflow of many scientists
+
+<a href="http://ropensci.org/packages/" target="_blank">Liste des librairies disponibles</a>
+
+Site internet: [http://ropensci.org/](http://ropensci.org/)
+
+---
+
+### Un exemple
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+require('spocc')
+ecoengine_data <- occ(query = 'Anas platyrhynchos', from = 'ebird')
+mapggplot(ecoengine_data)
+```
+
+---
+
+### Un exemple
+
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+require('spocc')
+spnames <- c('Ursus americanus')
+out <- occ(query = spnames, from = 'gbif', gbifopts = list(hasCoordinate = TRUE))
+head(out)
+```
+
+---
+
+### Si on veut pas utiliser R ?
+
+On peut retirer les données directement des sites en lignes
+
+**ou**
+
+Utiliser des logiciels comme EcoData Retriever
+
+---
+
+### Les base de données taxonomiques
+
+---
+
+### Les base de données taxonomiques
+
+**Quelques exemples**
+
+1. ITIS: International
+2. VASCAN: Canada
+
+---
+
+
+### Comment résoudre des problèmes de nomenclature ?
+
+---
+
+### Le package Taxize
+
+Chercher des correspondances dans les bases de données taxonomiques:
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+require('taxize')
+temp <- gnr_resolve(names = c("Helianthos annus", "Homo saapiens"))
+head( temp$results )
+```
+
+---
+
+### Le package Taxize
+
+Corriger le nom latin:
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+require('taxize')
+mynames <- c("Helianthus annuus", "Pinus contort", "Poa anua", "Abis magnifica",
+    "Rosa california", "Festuca arundinace", "Sorbus occidentalos","Madia sateva")
+tnrs(query = mynames, source = "iPlant_TNRS")[ , -c(5:7)]
+```
+
+---
+
+### Le package Taxize
+
+Obtenir la classification complète:
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+require('taxize')
+specieslist <- c("Abies procera","Pinus contorta")
+classification(specieslist, db = 'itis')
+```

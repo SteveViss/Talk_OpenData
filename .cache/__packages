@@ -1,0 +1,15 @@
+base
+slidify
+ggplot2
+knitr
+dplyr
+plyr
+lubridate
+data.table
+httr
+XML
+ggmap
+maps
+mapproj
+spocc
+taxize
